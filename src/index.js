@@ -1,0 +1,1 @@
+const webkitSpeechRecognition = new Speechreco

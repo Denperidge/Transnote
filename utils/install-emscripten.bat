@@ -1,0 +1,23 @@
+@ECHO OFF
+
+echo The following instructions have been added from https://emscripten.org/docs/getting_started/downloads.html#installation-instructions-using-the-emsdk-recommended
+echo Installing emscripten for Windows at C:/emsdk ...
+
+echo Switching to C: drive and changing directory to C:/ ...
+C:
+cd C:/
+
+echo Cloning emsdk...
+git clone https://github.com/emscripten-core/emsdk.git
+echo Entering C:/emsdk...
+cd emsdk
+
+echo Pulling latest changes...
+git pull
+
+echo Installing emscripten...
+emsdk.bat install latest 
+echo Activating emscripten...
+emsdk.bat activate latest
+echo Updating current terminal 
+emsdk_env.bat 
