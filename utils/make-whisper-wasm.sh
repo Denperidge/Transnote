@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# Build instructions: https://github.com/ggerganov/whisper.cpp/tree/master/examples/whisper.wasm#build-instructions
-git clone https://github.com/ggerganov/whisper.cpp
-pushd whisper.cpp
-
-rm -rf build-em
-mkdir build-em && cd build-em
+# https://stackoverflow.com/a/242550
+UTILSDIR=$(dirname $(realpath "$0"))
+OUTPUTDIR="$UTILSDIR/output"
+cd $UTILSDIR
+mkdir -p $OUTPUTDIR
 
 # Customise the following exports in case they do not run locally
 if ! command -v python &> /dev/null
@@ -16,10 +15,15 @@ else
 fi
 export CC=gcc
 
+# Build instructions from https://github.com/ggerganov/whisper.cpp/tree/master/examples/whisper.wasm#build-instructions
+git clone https://github.com/ggerganov/whisper.cpp
+cd whisper.cpp
+
+rm -rf build-em
+mkdir build-em && cd build-em
+
 emcmake cmake ..
 make -j
 
-
-
-#popd
-#rm -rf whisper.cpp/
+cp bin/whisper.wasm/* $OUTPUTDIR
+cp bin/libmain.worker.js $OUTPUTDIR
